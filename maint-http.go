@@ -1,5 +1,5 @@
 // maint-http: fast-superlight http server for maintenance pages
-// Copyright (c) Nicola Ruggero 2020 <nicola_ruggero@nxnt.org>
+// Copyright (c) Nicola Ruggero 2020 <nicola@nxnt.org>
 //
 // This is a fast-superlight http server for maintenance pages,
 // specifically designed to be a "backup" backend for haproxy.
