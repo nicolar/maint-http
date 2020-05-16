@@ -1,6 +1,6 @@
 # maint-http
 
-Fast-superlight http "backup" backend for haproxy<br>
+Fast-superlight http "backup" backend for haproxy  
 This is designed to serve static http pages for maintenance purposes.
 
 ## Usage
