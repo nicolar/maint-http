@@ -1,11 +1,13 @@
 # maint-http
 
-Fast-superlight http "backup" backend for haproxy
+Fast-superlight http "backup" backend for haproxy<br>
 This is designed to serve static http pages for maintenance purposes.
 
 ## Usage
 
+```shell
 Usage: ./maint-http [-d <directory_to_serve>] [-p <tcp_listen_port>]
+```
 
 ## Note
 
