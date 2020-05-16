@@ -1,0 +1,14 @@
+[Unit]
+Description=maint-http service
+After=network.target
+
+[Service]
+Type=simple
+User=maint-http
+ExecStart=/home/maint-http/maint-http -d /home/maint-http/html
+Restart=on-failure
+
+LimitNOFILE=16384
+
+[Install]
+WantedBy=multi-user.target
