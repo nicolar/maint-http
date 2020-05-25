@@ -44,7 +44,7 @@ var dir *string
 var ctxRes *string
 var showSwVer *bool
 
-const swVer = "1.1"
+const swVer = "1.2"
 
 // Special handler to always serve a maintenance page and its resources
 func handlerMaint(h http.Handler) http.Handler {
@@ -62,6 +62,7 @@ func handlerMaint(h http.Handler) http.Handler {
 		} else {
 			r.URL.Path = "/"
 		}
+		w.WriteHeader(http.StatusServiceUnavailable)
 		h.ServeHTTP(w, r) // call original
 		//log.Printf("After: %s", r.URL.String())
 	})
