@@ -43,8 +43,19 @@ var httpPort *string
 var dir *string
 var ctxRes *string
 var showSwVer *bool
+var httpReturnOk *bool
 
-const swVer = "1.1"
+const swVer = "1.2"
+
+type maintResponseWriter struct {
+	http.ResponseWriter
+	code int
+}
+
+func (mw *maintResponseWriter) WriteHeader(code int) {
+	mw.code = code
+	mw.ResponseWriter.WriteHeader(code)
+}
 
 // Special handler to always serve a maintenance page and its resources
 func handlerMaint(h http.Handler) http.Handler {
@@ -62,7 +73,12 @@ func handlerMaint(h http.Handler) http.Handler {
 		} else {
 			r.URL.Path = "/"
 		}
-		h.ServeHTTP(w, r) // call original
+		if *httpReturnOk {
+			maintRw := &maintResponseWriter{ResponseWriter: w, code: http.StatusOK}
+		} else {
+			maintRw := &maintResponseWriter{ResponseWriter: w, code: http.StatusServiceUnavailable}
+		}
+		h.ServeHTTP(maintRw, r) // call original
 		//log.Printf("After: %s", r.URL.String())
 	})
 }
@@ -74,6 +90,7 @@ func main() {
 	dir = flag.String("d", "./", "Directory with maintenance page to serve")
 	ctxRes = flag.String("r", "res", "URL context for HTML resources")
 	showSwVer = flag.Bool("v", false, "Print software version and exit")
+	httpReturnOk = flag.Bool("k", false, "Return a 200/OK HTTP code for any request")
 	flag.Parse()
 
 	// Show Software version
